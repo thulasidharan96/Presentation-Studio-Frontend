@@ -1,22 +1,15 @@
 import { useMemo, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { applyPatch, type Operation } from 'fast-json-patch'
 import { X } from 'lucide-react'
 import { rebuildDeck } from '../../api/decks.api'
 import { Rfc6902PatchEditor } from '../../components/editors/Rfc6902PatchEditor'
+import { parseJsonPatch } from '../../components/editors/patchValidation'
 
 export function RebuildDeckModal({ deckId, onClose }: { deckId: string; onClose: () => void }) {
   const [showPatch, setShowPatch] = useState(false)
   const [templateVersion, setTemplateVersion] = useState('1.0.0')
   const [patchText, setPatchText] = useState('[]')
-  const patch = useMemo(() => {
-    try {
-      const operations = JSON.parse(patchText) as Operation[]
-      if (!Array.isArray(operations)) return null
-      applyPatch({}, operations, true, false)
-      return operations
-    } catch { return null }
-  }, [patchText])
+  const patch = useMemo(() => parseJsonPatch(patchText), [patchText])
   const mutation = useMutation({ mutationFn: () => rebuildDeck(deckId, { template_version: templateVersion, patch: patch ?? undefined }), onSuccess: onClose })
   return (
     <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>

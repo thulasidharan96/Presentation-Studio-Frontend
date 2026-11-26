@@ -4,7 +4,7 @@ import { useCurrentUser } from '../../auth/useCurrentUser'
 import { env } from '../../config/env'
 import { useStudioStore } from '../../app/store'
 
-const links = [
+const links: Array<[string, string]> = [
   ['Nuova', '/decks/new'],
   ['Presentazioni', '/decks'],
   ['Template', '/templates'],
@@ -39,6 +39,7 @@ export function TopNav() {
         </button>
         <span className="version-badge">{env.version}</span>
         {user.roles.includes('Studio.Admin') && <span className="admin-badge"><ShieldCheck size={13} /> Admin</span>}
+        <span className="user-email">{user.email}</span>
         <span className="user-avatar" title={user.email}>{user.name.slice(0, 1).toUpperCase()}</span>
       </div>
     </header>

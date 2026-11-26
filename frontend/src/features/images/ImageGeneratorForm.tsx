@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { Dice5, Sparkles } from 'lucide-react'
 import { generateImage } from '../../api/images.api'
+import { env } from '../../config/env'
 
-const blockedTerms = ['coca-cola', 'disney', 'mickey mouse']
+const blockedTerms = [...new Set(['coca-cola', 'disney', 'mickey mouse', 'real person', 'celebrity portrait', ...env.promptBlocklist].map((term) => term.toLowerCase()))]
 const chips = ['Innovazione', 'Sostenibilità', 'Teamwork', 'Futuro digitale']
 
 export function ImageGeneratorForm() {

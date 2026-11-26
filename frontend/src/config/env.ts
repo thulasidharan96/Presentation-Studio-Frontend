@@ -12,6 +12,7 @@ export const env = {
   tenantId: read('VITE_AZURE_TENANT_ID', 'common'),
   clientId: read('VITE_AZURE_CLIENT_ID'),
   apiScope: read('VITE_AZURE_API_SCOPE'),
+  promptBlocklist: read('VITE_PROMPT_BLOCKLIST').split(',').map((term) => term.trim()).filter(Boolean),
   authDisabled: read('VITE_AUTH_DISABLED') === 'true',
   version: read('VITE_APP_VERSION', 'v0.1.2_dev'),
 }

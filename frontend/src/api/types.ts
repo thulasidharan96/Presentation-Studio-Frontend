@@ -10,6 +10,15 @@ export interface Deck {
   cost: number
 }
 
+export interface FlowSummary extends Omit<FlowDocument, 'title'> {
+  title: string
+  id: string
+  slug: string
+  version: number
+  tags: string[]
+  updated_at: string
+}
+
 export interface FlowNode {
   id: string
   label: string

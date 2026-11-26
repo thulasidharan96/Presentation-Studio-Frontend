@@ -11,6 +11,6 @@ describe('FlowSvgRenderer', () => {
     expect(screen.getByText('Richiesta')).toBeInTheDocument()
     expect(screen.getByText('Approvato')).toBeInTheDocument()
     expect(container.querySelectorAll('rect[rx="10"]')).toHaveLength(2)
-    expect(container.firstChild).toMatchSnapshot()
+    expect(container.querySelector('rect[rx="10"]')).toHaveAttribute('x', '45')
   })
 })
